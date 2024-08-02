@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Layout Default - Mazer Admin Dashboard</title>
+    <title>WELCOME TO CHEKKEN</title>
 
 
 
@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
 
 
-<link rel="stylesheet" href="./assets/compiled/css/table-datatable-jquery.css">
+    <link rel="stylesheet" href="./assets/compiled/css/table-datatable-jquery.css">
     <link rel="stylesheet" href="./assets/compiled/css/app.css">
     <link rel="stylesheet" href="./assets/compiled/css/app-dark.css">
 
@@ -30,6 +30,16 @@
             background-color: rgba(0, 0, 0, 1.0);
             width: 100%;
             height: 100%;
+        }
+
+        #button-group
+        {
+            margin-bottom: 1rem;
+        }
+        #button-group .btn
+        {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -178,9 +188,7 @@
                             <li class="nav-item" role="presentation">
                                 <a class="nav-link" id="profile-tab" data-bs-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">BET</a>
                             </li>
-                            <li class="nav-item" role="presentation">
-                                <a class="nav-link" id="contact-tab" data-bs-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Bet Summary</a>
-                            </li>
+                           
                         </ul>
                         <hr>
                         <div class="tab-content" id="myTabContent">
@@ -197,7 +205,7 @@
                                                     <div class="card-body">
                                                         <h2 class="card-title text-center">MERON</h2>
                                                         <p class="card-text text-center bg-primary rounded display-6 ">
-                                                            Etits
+                                                            Sample
                                                         </p>
 
                                                     </div>
@@ -209,7 +217,7 @@
                                                     <div class="card-body">
                                                         <h2 class="card-title text-center">DRAW</h2>
                                                         <p class="card-text text-center bg-success rounded display-6 ">
-                                                            Etits
+                                                            Sample
                                                         </p>
 
                                                     </div>
@@ -221,7 +229,7 @@
                                                     <div class="card-body">
                                                         <h2 class="card-title text-center">WALA</h2>
                                                         <p class="card-text text-center bg-danger rounded display-6 ">
-                                                          Etits
+                                                            Sample
                                                         </p>
 
                                                     </div>
@@ -232,97 +240,175 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class=" tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                                Integer interdum diam eleifend metus lacinia, quis gravida eros mollis. Fusce non sapien
-                                sit amet magna dapibus
-                                ultrices. Morbi tincidunt magna ex, eget faucibus sapien bibendum non. Duis a mauris ex.
-                                Ut finibus risus sed massa
-                                mattis porta. Aliquam sagittis massa et purus efficitur ultricies. Integer pretium dolor
-                                at sapien laoreet ultricies.
-                                Fusce congue et lorem id convallis. Nulla volutpat tellus nec molestie finibus. In nec
-                                odio tincidunt eros finibus
-                                ullamcorper. Ut sodales, dui nec posuere finibus, nisl sem aliquam metus, eu accumsan
-                                lacus felis at odio. Sed lacus
-                                quam, convallis quis condimentum ut, accumsan congue massa. Pellentesque et quam vel
-                                massa pretium ullamcorper vitae eu
-                                tortor.
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                <div class="row">
+                                    <div class="col-sm-7">
+                                        <div class="card border border-primary">
+                                            <div class="card-body">
+                                                <div class="row justify-content-between">
+                                                    <h5 class="card-title">Minimum Bet : 100</h5>
+                                                    <div class="col-5">
+                                                        <div class="input-group mb-3">
+                                                            <input type="text" class="form-control" placeholder="Custom Bet" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                            <span class="input-group-text" id="basic-addon2">PHP</span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-7">
+
+                                                        <div class="card border border-primary">
+
+                                                            <div class="card-body text-center">
+
+
+                                                                <div id="button-group">
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">100</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">200</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">300</button>
+                                                                
+                                                             
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">400</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">500</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">600</button>
+                                                            
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">700</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">800</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">900</button>
+                                                               
+                                                            
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">1000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">2000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">3000</button>
+
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">4000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">5000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">6000</button>
+
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">7000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">8000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">9000</button>
+                                                                    
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger">10000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger">20000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger">50000</button>
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-5">
+                                        <div class="card border border-primary text-center">
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h5 class="card-title">Select Side</h5>
+                                                        <div class="row justify-content-around">
+
+                                                            <button class="col-4 btn btn-xl btn-danger">MERON</butto>
+
+                                                                <button  class="col-4 btn btn-xl btn-primary">WALA</button>
+
+
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <button  class="col-4 btn btn-xl btn-success">DRAW</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <hr>
+                                                <div class="row">
+                                                    <div clas="col">
+                                                        <h3 class="card-title">BET SUMMARY</h3>
+                                                        <hr>
+                                                        <h4> Venue: </h4>
+                                                        <h4> Side:</h4>
+                                                        <h4> Amount:</h4>
+                                                        <h4> Fight #:</h4>
+                                                        <h4> Location:</h4>
+                                                        <button class="col-4 btn btn-xl btn-primary">POST BET</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
-                                <p class="mt-2">Duis ultrices purus non eros fermentum hendrerit. Aenean ornare interdum
-                                    viverra. Sed ut odio velit. Aenean eu diam
-                                    dictum nibh rhoncus mattis quis ac risus. Vivamus eu congue ipsum. Maecenas id
-                                    sollicitudin ex. Cras in ex vestibulum,
-                                    posuere orci at, sollicitudin purus. Morbi mollis elementum enim, in cursus sem
-                                    placerat ut.</p>
+                          
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Table for Status -->
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title">
+                                    Current Bets:
+                                </h5>
+                            </div>
+
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" id="table1">
+                                        <thead>
+                                            <tr>
+                                                <th>Fight #</th>
+                                                <th>Bet Type</th>
+                                                <th>Side</th>
+                                                <th>Amount</th>
+                                                <th>Barcode</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                    <div class="col-12 col-md-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">Current Status</h4>
+                            </div>
+                            <div class="card-content">
 
-        
-            <!-- Table for Status -->
-            <div class="row">
-            <div class="col-12 col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">
-                            Current Bets:   
-                        </h5>
-                    </div>
 
-                    <div class="card-body">
-                        <div class="table-responsive">
-                            <table class="table" id="table1">
-                                <thead>
-                                    <tr>
-                                        <th>Fight #</th>
-                                        <th>Bet Type</th>
-                                        <th>Side</th>
-                                        <th>Amount</th>
-                                        <th>Barcode</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  
-                                </tbody>
-                            </table>
+                                <!-- Table with no outer spacing -->
+                                <div class="table-responsive">
+                                    <table class="table mb-0 table-lg">
+                                        <thead>
+                                            <tr>
+                                                <th>Status</th>
+                                                <th>Betting</th>
+                                                <th>Winner</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
-            </div>
-            <div class="col-12 col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="card-title">Current Status</h4>
-                    </div>
-                    <div class="card-content">
-                 
 
-                        <!-- Table with no outer spacing -->
-                        <div class="table-responsive">
-                            <table class="table mb-0 table-lg">
-                                <thead>
-                                    <tr>
-                                        <th>Status</th>
-                                        <th>Betting</th>
-                                        <th>Winner</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                   
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            </div>
-
-            
-        </div> <!-- Main Div -->
-    </div>
+            </div> <!-- Main Div -->
+        </div>
         <!-- End of Table -->
 
     </div>
@@ -342,7 +428,7 @@
     window.addEventListener('load', function() {
         setTimeout(function() {
             document.getElementById('spinner').style.display = 'none';
-        }, 3000);
+        }, 1000);
     });
 </script>
 
