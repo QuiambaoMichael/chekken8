@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="./assets/compiled/css/table-datatable-jquery.css">
     <link rel="stylesheet" href="./assets/compiled/css/app.css">
     <link rel="stylesheet" href="./assets/compiled/css/app-dark.css">
+    <link rel="stylesheet" href="./assets/extensions/@fortawesome/fontawesome-free/css/all.min.css">
 
     <style>
         .spinner {
@@ -172,7 +173,20 @@
                         </div>
                     </div>
                 </div>
-
+                <div class="card col-4">
+                    <div class="card-body">
+                    <div class="card-title">
+                    
+                    <p class="h3"><span class="fa-fw select-all fas"></span> Money on Hand: 50000 PHP</p>
+                    </div>
+                    <div id="button-group">
+                    <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> View Summary</button>
+                    <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span>  Cash In</button>
+                    <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Tranfer Fund</button>
+                    <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Cash Out</button>
+                    </div>
+                    </div>
+                </div>
 
                 <div class="card">
                     <div id="spinner" class="spinner">
@@ -309,15 +323,15 @@
                                                     <div class="col">
                                                         <h5 class="card-title">Select Side</h5>
                                                         <div class="row justify-content-around">
+                
+                                                            <button class="col-4 btn btn-xl btn-danger" data-bs-toggle="button">MERON</button>
 
-                                                            <button class="col-4 btn btn-xl btn-danger">MERON</butto>
-
-                                                                <button  class="col-4 btn btn-xl btn-primary">WALA</button>
+                                                                <button  class="col-4 btn btn-xl btn-primary" data-bs-toggle="button">WALA</button>
 
 
                                                         </div>
                                                         <div class="card-body">
-                                                            <button  class="col-4 btn btn-xl btn-success">DRAW</button>
+                                                            <button  class="col-4 btn btn-xl btn-success" data-bs-toggle="button">DRAW</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -338,6 +352,7 @@
 
                                         </div>
                                     </div>
+                                   
                                 </div>
                             </div>
                           
