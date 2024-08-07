@@ -1,4 +1,13 @@
 <?php
+if (basename($_SERVER['SCRIPT_FILENAME']) === basename(__FILE__)) {
+    // Check the Referer header to see if it matches your site
+    if (empty($_SERVER['HTTP_REFERER']) || strpos($_SERVER['HTTP_REFERER'], $_SERVER['HTTP_HOST']) === false) {
+        // If the referer is not set or does not match the host, deny access
+        http_response_code(403);
+        include '403.php'; // or any custom message
+        exit();
+    }
+}
 $servername = "localhost";
 $username = "root";
 $password = "1234";
@@ -43,4 +52,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 // Fetch the event data
 $sql = "SELECT EventID, Name, Date, Description FROM event";
 $result = $conn->query($sql);
+
+
 ?>

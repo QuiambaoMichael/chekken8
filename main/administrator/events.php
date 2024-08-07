@@ -189,7 +189,7 @@
                 <?php include("add_event.php"); ?>
                 <!-- Table for Status -->
                 <div class="row">
--+
+
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
@@ -214,28 +214,34 @@
                                     </thead>
                                     <tbody>
                                     <?php
-                            if ($result->num_rows > 0) {
-                                while($row = $result->fetch_assoc()) {
-                                    $formattedDate = date("m/d/Y h:i A", strtotime($row["Date"]));
-                                    echo "<tr>";
-                                    echo "<tr>";
-                                    echo "<td>" . $row["EventID"] . "</td>";
-                                    echo "<td>" . $row["Name"] . "</td>";
-                                    echo "<td>" . $formattedDate. "</td>";
-                                    echo "<td>" . $row["Description"] . "</td>";
-                                    echo "<td>";
-                                    echo "<form method='POST' action='' style='display:inline;'>";
-                                    echo "<input type='hidden' name='eventID' value='" . $row["EventID"] . "'>";
-                                    echo "<button type='submit' name='delete' class='btn btn-danger btn-sm'>Delete</button>";
-                                    echo "</form>";
-                                    echo "</td>";
-                                    echo "</tr>";
-                                }
-                            } else {
-                                echo "<tr><td colspan='5'>No events found</td></tr>";
-                            }
-                            $conn->close();
-                            ?>
+                                        if ($result->num_rows > 0) {
+                                            while ($row = $result->fetch_assoc()) {
+                                                $formattedDate = date("m/d/Y h:i A", strtotime($row["Date"]));
+                                        ?>
+
+                                           
+                                                <tr>
+                                                    <td><?php echo $row['EventID']; ?></td>
+                                                    <td><?php echo $row['Name']; ?></td>
+                                                    <td><?php echo $formattedDate; ?></td>
+                                                    <td><?php echo $row['Description']; ?></td>
+                                                    <td>
+                                                        <form method='POST' action='' style='display:inline;'>
+                                                            <input type='hidden' name='eventID' value='<?php echo $row['EventID']; ?>'>
+                                                            
+                                                            <button type='submit' name='delete' class='btn btn-danger btn-sm'>Delete</button>
+                                                        </form>
+                                                    </td>
+                                                </tr>
+
+                                        <?php
+
+                                            }
+                                        } else {
+                                            echo "<tr><td colspan='5'>No events found</td></tr>";
+                                        }
+                                        $conn->close();
+                                        ?>
                         </tbody>
                                 </table>
 
@@ -320,6 +326,8 @@
             document.getElementById('spinner').style.display = 'none';
         }, 1000);
     });
+
+   
 </script>
 
 

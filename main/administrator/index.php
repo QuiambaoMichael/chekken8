@@ -1,3 +1,28 @@
+
+<?php
+session_start();
+
+// Set session timeout period in seconds
+$timeout_duration = 100; // 30 minutes
+
+
+// Check if the user is logged in and has the 'admin' role
+if (!isset($_SESSION['username']) || $_SESSION['role'] != '1') {
+    // Redirect to login page if not logged in or not an admin
+    header('Location: ../index.php');
+    exit();
+}
+// Check if the timeout period has passed
+if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $timeout_duration) {
+    session_unset();
+    session_destroy();
+    header('Location: index.php');
+    exit();
+}
+
+$_SESSION['last_activity'] = time(); // Update last activity time
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -144,7 +169,7 @@
                                         <li>
                                             <hr class="dropdown-divider">
                                         </li>
-                                        <li><a class="dropdown-item" href="#"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
+                                        <li><a class="dropdown-item" href="logout.php"><i class="icon-mid bi bi-box-arrow-left me-2"></i> Logout</a></li>
                                     </ul>
                                 </div>
                         </div>
