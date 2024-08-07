@@ -187,9 +187,9 @@
                             <p class="h3"><span class="fa-fw select-all fas"></span> Money on Hand: 50000 PHP</p>
                         </div>
                         <div id="button-group">
-                            <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> View Summary</button>
+                            <button type="button" class="col-md-6  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> View Summary</button>
                             <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Cash In</button>
-                            <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Tranfer Fund</button>
+                            <button type="button" class="col-md-6  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Tranfer Fund</button>
                             <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Cash Out</button>
                         </div>
                     </div>

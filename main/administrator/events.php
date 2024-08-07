@@ -186,10 +186,10 @@
 
 
 
-
+                <?php include("add_event.php"); ?>
                 <!-- Table for Status -->
                 <div class="row">
-
+-+
                     <div class="card">
                         <div class="card-header">
                             <h5 class="card-title">
@@ -207,13 +207,36 @@
                                         <tr>
                                             <th>Event #</th>
                                             <th>Name</th>
-                                            <th>Date</th>
+                                            <th style="width:400px">Date</th>
                                             <th>Description</th>
+                                            <th>Operation</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                    </tbody>
+                                    <?php
+                            if ($result->num_rows > 0) {
+                                while($row = $result->fetch_assoc()) {
+                                    $formattedDate = date("m/d/Y h:i A", strtotime($row["Date"]));
+                                    echo "<tr>";
+                                    echo "<tr>";
+                                    echo "<td>" . $row["EventID"] . "</td>";
+                                    echo "<td>" . $row["Name"] . "</td>";
+                                    echo "<td>" . $formattedDate. "</td>";
+                                    echo "<td>" . $row["Description"] . "</td>";
+                                    echo "<td>";
+                                    echo "<form method='POST' action='' style='display:inline;'>";
+                                    echo "<input type='hidden' name='eventID' value='" . $row["EventID"] . "'>";
+                                    echo "<button type='submit' name='delete' class='btn btn-danger btn-sm'>Delete</button>";
+                                    echo "</form>";
+                                    echo "</td>";
+                                    echo "</tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='5'>No events found</td></tr>";
+                            }
+                            $conn->close();
+                            ?>
+                        </tbody>
                                 </table>
 
                             </div>
@@ -233,24 +256,22 @@
                                     <i data-feather="x"></i>
                                 </button>
                             </div>
-                            <form action="#">
+                            <form action="add_event.php" method="POST" data-parsley-validate>
                                 <div class="modal-body">
-                                    <label for="name">Event Name: </label>
-                                    <div class="form-group">
-                                        <input id="name" type="text" placeholder="Event Name" class="form-control">
+                                  
+                                    <div class="form-group mandatory">
+                                    <label for="name" class="form-label">Event Name </label>
+                                        <input id="name" name="name" type="text" placeholder="Event Name" class="form-control" data-parsley-required="true">
                                     </div>
-                                    <label for="date">Date of Event: </label>
-                                    <div class="form-group">
-
-                                        <input id="date" type="date" class="form-control flatpickr-range mb-3" placeholder="Select date..">
+                                    
+                              
+                                    <div class="form-group mandatory">
+                                    <label for="date" class="form-label">Date of Event </label>
+                                        <input id="date" name="date" type="date" class="form-control flatpickr-no-config" placeholder="Select date.." data-parsley-required="true">
                                     </div>
-                                    <div class="form-group">
-                                    <label for="full">Description: </label>
-                                        <div id="full">
-                                            <p>Hello World!</p>
-                               
-                                            <p><br></p>
-                                        </div>
+                                    <div class="form-group mandatory">
+                                        <label for="description" class="form-label">Description </label>
+                                        <textarea id="description" name="description" class="form-control" placeholder="Event Description" data-parsley-required="true"></textarea>
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -258,12 +279,13 @@
                                         <i class="bx bx-x d-block d-sm-none"></i>
                                         <span class="d-none d-sm-block">Close</span>
                                     </button>
-                                    <button type="button" class="btn btn-primary ms-1" data-bs-dismiss="modal">
+                                    <button type="submit" class="btn btn-primary ms-1">
                                         <i class="bx bx-check d-block d-sm-none"></i>
                                         <span class="d-none d-sm-block">Add</span>
                                     </button>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>
@@ -286,7 +308,8 @@
 <script src="assets/extensions/flatpickr/flatpickr.min.js"></script>
 <script src="assets/static/js/pages/date-picker.js"></script>
 <script src="assets/compiled/js/app.js"></script>
-
+<script src="assets/extensions/parsleyjs/parsley.min.js"></script>
+<script src="assets/static/js/pages/parsley.js"></script>
 
 
 <script src="assets/extensions/quill/quill.min.js"></script>
