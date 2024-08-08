@@ -1,10 +1,10 @@
-
 <?php
 session_start();
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
 
 // Set session timeout period in seconds
-$timeout_duration = 100; // 30 minutes
-
+$timeout_duration = 1800; // 30 minutes
 
 // Check if the user is logged in and has the 'admin' role
 if (!isset($_SESSION['username']) || $_SESSION['role'] != '1') {
@@ -12,15 +12,20 @@ if (!isset($_SESSION['username']) || $_SESSION['role'] != '1') {
     header('Location: ../index.php');
     exit();
 }
+
 // Check if the timeout period has passed
 if (isset($_SESSION['last_activity']) && (time() - $_SESSION['last_activity']) > $timeout_duration) {
     session_unset();
     session_destroy();
-    header('Location: index.php');
+    header('Location: ../index.php'); // Redirect to login page after timeout
     exit();
 }
 
 $_SESSION['last_activity'] = time(); // Update last activity time
+
+if (!isset($_SESSION['emp'])) {
+    $_SESSION['emp'] = 'Unknown'; // Handle missing EmployeeID
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +42,7 @@ $_SESSION['last_activity'] = time(); // Update last activity time
     <link rel="shortcut icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAiCAYAAADRcLDBAAAEs2lUWHRYTUw6Y29tLmFkb2JlLnhtcAAAAAAAPD94cGFja2V0IGJlZ2luPSLvu78iIGlkPSJXNU0wTXBDZWhpSHpyZVN6TlRjemtjOWQiPz4KPHg6eG1wbWV0YSB4bWxuczp4PSJhZG9iZTpuczptZXRhLyIgeDp4bXB0az0iWE1QIENvcmUgNS41LjAiPgogPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4KICA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIgogICAgeG1sbnM6ZXhpZj0iaHR0cDovL25zLmFkb2JlLmNvbS9leGlmLzEuMC8iCiAgICB4bWxuczp0aWZmPSJodHRwOi8vbnMuYWRvYmUuY29tL3RpZmYvMS4wLyIKICAgIHhtbG5zOnBob3Rvc2hvcD0iaHR0cDovL25zLmFkb2JlLmNvbS9waG90b3Nob3AvMS4wLyIKICAgIHhtbG5zOnhtcD0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wLyIKICAgIHhtbG5zOnhtcE1NPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvbW0vIgogICAgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIKICAgZXhpZjpQaXhlbFhEaW1lbnNpb249IjMzIgogICBleGlmOlBpeGVsWURpbWVuc2lvbj0iMzQiCiAgIGV4aWY6Q29sb3JTcGFjZT0iMSIKICAgdGlmZjpJbWFnZVdpZHRoPSIzMyIKICAgdGlmZjpJbWFnZUxlbmd0aD0iMzQiCiAgIHRpZmY6UmVzb2x1dGlvblVuaXQ9IjIiCiAgIHRpZmY6WFJlc29sdXRpb249Ijk2LjAiCiAgIHRpZmY6WVJlc29sdXRpb249Ijk2LjAiCiAgIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiCiAgIHBob3Rvc2hvcDpJQ0NQcm9maWxlPSJzUkdCIElFQzYxOTY2LTIuMSIKICAgeG1wOk1vZGlmeURhdGU9IjIwMjItMDMtMzFUMTA6NTA6MjMrMDI6MDAiCiAgIHhtcDpNZXRhZGF0YURhdGU9IjIwMjItMDMtMzFUMTA6NTA6MjMrMDI6MDAiPgogICA8eG1wTU06SGlzdG9yeT4KICAgIDxyZGY6U2VxPgogICAgIDxyZGY6bGkKICAgICAgc3RFdnQ6YWN0aW9uPSJwcm9kdWNlZCIKICAgICAgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWZmaW5pdHkgRGVzaWduZXIgMS4xMC4xIgogICAgICBzdEV2dDp3aGVuPSIyMDIyLTAzLTMxVDEwOjUwOjIzKzAyOjAwIi8+CiAgICA8L3JkZjpTZXE+CiAgIDwveG1wTU06SGlzdG9yeT4KICA8L3JkZjpEZXNjcmlwdGlvbj4KIDwvcmRmOlJERj4KPC94OnhtcG1ldGE+Cjw/eHBhY2tldCBlbmQ9InIiPz5V57uAAAABgmlDQ1BzUkdCIElFQzYxOTY2LTIuMQAAKJF1kc8rRFEUxz9maORHo1hYKC9hISNGTWwsRn4VFmOUX5uZZ36oeTOv954kW2WrKLHxa8FfwFZZK0WkZClrYoOe87ypmWTO7dzzud97z+nec8ETzaiaWd4NWtYyIiNhZWZ2TvE946WZSjqoj6mmPjE1HKWkfdxR5sSbgFOr9Ll/rXoxYapQVik8oOqGJTwqPL5i6Q5vCzeo6dii8KlwpyEXFL519LjLLw6nXP5y2IhGBsFTJ6ykijhexGra0ITl5bRqmWU1fx/nJTWJ7PSUxBbxJkwijBBGYYwhBgnRQ7/MIQIE6ZIVJfK7f/MnyUmuKrPOKgZLpEhj0SnqslRPSEyKnpCRYdXp/9++msneoFu9JgwVT7b91ga+LfjetO3PQ9v+PgLvI1xkC/m5A+h7F32zoLXug38dzi4LWnwHzjeg8UGPGbFfySvuSSbh9QRqZ6H+Gqrm3Z7l9zm+h+iafNUV7O5Bu5z3L/wAdthn7QIme0YAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAJTSURBVFiF7Zi9axRBGIefEw2IdxFBRQsLWUTBaywSK4ubdSGVIY1Y6HZql8ZKCGIqwX/AYLmCgVQKfiDn7jZeEQMWfsSAHAiKqPiB5mIgELWYOW5vzc3O7niHhT/YZvY37/swM/vOzJbIqVq9uQ04CYwCI8AhYAlYAB4Dc7HnrOSJWcoJcBS4ARzQ2F4BZ2LPmTeNuykHwEWgkQGAet9QfiMZjUSt3hwD7psGTWgs9pwH1hC1enMYeA7sKwDxBqjGnvNdZzKZjqmCAKh+U1kmEwi3IEBbIsugnY5avTkEtIAtFhBrQCX2nLVehqyRqFoCAAwBh3WGLAhbgCRIYYinwLolwLqKUwwi9pxV4KUlxKKKUwxC6ZElRCPLYAJxGfhSEOCz6m8HEXvOB2CyIMSk6m8HoXQTmMkJcA2YNTHm3congOvATo3tE3A29pxbpnFzQSiQPcB55IFmFNgFfEQeahaAGZMpsIJIAZWAHcDX2HN+2cT6r39GxmvC9aPNwH5gO1BOPFuBVWAZue0vA9+A12EgjPadnhCuH1WAE8ivYAQ4ohKaagV4gvxi5oG7YSA2vApsCOH60WngKrA3R9IsvQUuhIGY00K4flQG7gHH/mLytB4C42EgfrQb0mV7us8AAMeBS8mGNMR4nwHamtBB7B4QRNdaS0M8GxDEog7iyoAguvJ0QYSBuAOcAt71Kfl7wA8DcTvZ2KtOlJEr+ByyQtqqhTyHTIeB+ONeqi3brh+VgIN0fohUgWGggizZFTplu12yW8iy/YLOGWMpDMTPXnl+Az9vj2HERYqPAAAAAElFTkSuQmCC" type="image/png">
     <link rel="stylesheet" href="assets/extensions/datatables.net-bs5/css/dataTables.bootstrap5.min.css">
 
-
+    <link rel="stylesheet" href="assets/extensions/flatpickr/flatpickr.min.css">
     <link rel="stylesheet" href="./assets/compiled/css/table-datatable-jquery.css">
     <link rel="stylesheet" href="./assets/compiled/css/app.css">
     <link rel="stylesheet" href="./assets/compiled/css/app-dark.css">
@@ -70,6 +75,7 @@ $_SESSION['last_activity'] = time(); // Update last activity time
 </head>
 
 <body>
+
     <script src="assets/static/js/initTheme.js"></script>
     <div id="app">
         <div id="sidebar">
@@ -118,9 +124,9 @@ $_SESSION['last_activity'] = time(); // Update last activity time
                         </li>
                         <li class="sidebar-item  ">
                             <a href="events.php" class='sidebar-link'>
-                            <svg class="bi" width="1em" height="1em" fill="currentColor">
-                                        <use xlink:href="assets/static/images/bootstrap-icons.svg#calendar-event-fill"></use>
-                                    </svg>
+                                <svg class="bi" width="1em" height="1em" fill="currentColor">
+                                    <use xlink:href="assets/static/images/bootstrap-icons.svg#calendar-event-fill"></use>
+                                </svg>
                                 <span>Events</span>
                             </a>
                         </li>
@@ -209,11 +215,15 @@ $_SESSION['last_activity'] = time(); // Update last activity time
                     <div class="card-body">
                         <div class="card-title">
 
-                            <p class="h3"><span class="fa-fw select-all fas"></span> Money on Hand: 50000 PHP</p>
+                            <p class="h3">
+                                <span class="fa-fw select-all fas">
+
+                                </span> Money on Hand: <span id="totalAmount">0.00</span> PHP</p>
                         </div>
+
                         <div id="button-group">
                             <button type="button" class="col-md-6  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> View Summary</button>
-                            <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Cash In</button>
+                            <button type="button" class="col-md-5  btn btn-lg btn-success" data-bs-toggle="modal" data-bs-target="#inlineForm"><span class="fa-fw select-all fas"></span> Cash In</button>
                             <button type="button" class="col-md-6  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Tranfer Fund</button>
                             <button type="button" class="col-md-5  btn btn-lg btn-success"><span class="fa-fw select-all fas"></span> Cash Out</button>
                         </div>
@@ -295,7 +305,7 @@ $_SESSION['last_activity'] = time(); // Update last activity time
                                                     <h5 class="card-title">Minimum Bet : 100</h5>
                                                     <div class="col-5">
                                                         <div class="input-group mb-3">
-                                                            <input type="text" class="form-control" placeholder="Custom Bet" aria-label="Recipient's username" aria-describedby="basic-addon2">
+                                                            <input type="text" id="customBet" class="form-control" placeholder="Custom Bet" aria-label="Recipient's username" aria-describedby="basic-addon2">
                                                             <span class="input-group-text" id="basic-addon2">PHP</span>
                                                         </div>
                                                     </div>
@@ -307,35 +317,27 @@ $_SESSION['last_activity'] = time(); // Update last activity time
 
 
                                                                 <div id="button-group">
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">100</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">200</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">300</button>
-
-
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">400</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">500</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">600</button>
-
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">700</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">800</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">900</button>
-
-
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">1000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">2000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">3000</button>
-
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">4000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">5000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">6000</button>
-
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">7000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">8000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success">9000</button>
-
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger">10000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger">20000</button>
-                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger">50000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(100)">100</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(200)">200</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(300)">300</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(400)">400</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(500)">500</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(600)">600</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(700)">700</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(800)">800</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(900)">900</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(1000)">1000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(2000)">2000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(3000)">3000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(4000)">4000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(5000)">5000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(6000)">6000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(7000)">7000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(8000)">8000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-success" onclick="setBetValue(9000)">9000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger" onclick="setBetValue(10000)">10000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger" onclick="setBetValue(20000)">20000</button>
+                                                                    <button type="button" class="col-md-3  btn btn-lg btn-danger" onclick="setBetValue(50000)">50000</button>
                                                                 </div>
 
 
@@ -374,7 +376,7 @@ $_SESSION['last_activity'] = time(); // Update last activity time
                                                         <hr>
                                                         <h4> Venue: </h4>
                                                         <h4> Side:</h4>
-                                                        <h4> Amount:</h4>
+                                                        <h4>Amount: <span id="displayAmount">0</span> PHP</h4>
                                                         <h4> Fight #:</h4>
                                                         <h4> Location:</h4>
                                                         <button class="col-4 btn btn-xl btn-primary">POST BET</button>
@@ -452,8 +454,52 @@ $_SESSION['last_activity'] = time(); // Update last activity time
                     </div>
 
                 </div>
+                <div class="modal fade text-left" id="inlineForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title" id="myModalLabel33">Cashin Form</h4>
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <i data-feather="x"></i>
+                                </button>
+                            </div>
+                            <form action="process_cashin.php" method="post">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="employeeID">Employee ID: </label>
+                                        <input id="employeeID" name="employeeID" type="text" value="<?php echo htmlspecialchars($_SESSION['emp']); ?>" class="form-control" readonly>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="transactionID">Transaction ID: </label>
+                                        <input id="transactionID" name="transactionID" type="text" placeholder="" class="form-control" readonly>
+                                    </div>
 
+                                    <div class="form-group">
+                                        <label for="amount">Amount: </label>
+                                        <input id="amount" name="amount" type="text" placeholder="" class="form-control" required>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="datetime">Date/Time: </label>
+                                        <input id="datetime" name="datetime" type="text" placeholder="" class="form-control flatpickr-no-config" required>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-light-secondary" data-bs-dismiss="modal">
+                                        <i class="bx bx-x d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Close</span>
+                                    </button>
+                                    <button type="submit" class="btn btn-primary ms-1">
+                                        <i class="bx bx-check d-block d-sm-none"></i>
+                                        <span class="d-none d-sm-block">Save</span>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!--End Cashin form Modal -->
             </div> <!-- Main Div -->
         </div>
         <!-- End of Table -->
@@ -469,14 +515,39 @@ $_SESSION['last_activity'] = time(); // Update last activity time
 <script src="assets/extensions/datatables.net/js/jquery.dataTables.min.js"></script>
 <script src="assets/extensions/datatables.net-bs5/js/dataTables.bootstrap5.min.js"></script>
 <script src="assets/static/js/pages/datatables.js"></script>
-
+<script src="assets/extensions/flatpickr/flatpickr.min.js"></script>
+<script src="assets/static/js/pages/date-picker.js"></script>
 <script src="assets/compiled/js/app.js"></script>
 <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Generate a randomized 5-digit integer and set it to the input field
+        function generateTransactionID() {
+            var min = 10000; // Minimum value for a 5-digit integer
+            var max = 99999; // Maximum value for a 5-digit integer
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        document.getElementById('transactionID').value = generateTransactionID();
+    });
+    document.addEventListener('DOMContentLoaded', function() {
+        fetch('fetch_total.php')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('totalAmount').textContent = data.totalAmount;
+            })
+            .catch(error => console.error('Error fetching total amount:', error));
+    });
+
     window.addEventListener('load', function() {
         setTimeout(function() {
             document.getElementById('spinner').style.display = 'none';
         }, 1000);
     });
+
+    function setBetValue(value) {
+        document.getElementById('customBet').value = value;
+        document.getElementById('displayAmount').innerText = value;
+    }
 </script>
 
 
