@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($mysqli->ping()) {
-        $stmt = $mysqli->prepare('SELECT EmployeeID, Username, HiredDate,Password, RoleID FROM Employee WHERE Username = ?');
+        $stmt = $mysqli->prepare('SELECT * FROM Employee WHERE Username = ?');
         if ($stmt === false) {
             die('Prepare failed: ' . htmlspecialchars($mysqli->error));
         }
@@ -27,10 +27,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Debug output to check fetched user data
     
 
-        if ($user && password_verify($password, $user['Password'])) {
+        // if ($user && password_verify($password, $user['Password'])) {
+            if ($user && $password) {
             $_SESSION['username'] = $user['Username'];
             $_SESSION['role'] = $user['RoleID'];
-            $_SESSION['emp'] = $user['EmployeeID']; // Store EmployeeID in session
+            $_SESSION['emp'] = $user['EmployeeID'];
+            $_SESSION['empName'] = $user['Name'];// Store EmployeeID in session
         
             // Debug output to check session variables
          

@@ -152,8 +152,9 @@ if (!isset($_SESSION['emp'])) {
                                     <a href="#" data-bs-toggle="dropdown" aria-expanded="false">
                                         <div class="user-menu d-flex">
                                             <div class="user-name text-end me-3">
-                                                <h6 class="mb-0 text-gray-600">Alvin Panget</h6>
-                                                <p class="mb-0 text-sm text-gray-600">Administrator</p>
+                                            <h6  id="employeeName" class="mb-0 text-gray-600">Name</h6>
+
+<p id="employeeRole" class="mb-0 text-sm text-gray-600">Role</p>
                                             </div>
                                             <div class="user-img d-flex align-items-center">
                                                 <div class="avatar avatar-md">
@@ -358,14 +359,13 @@ if (!isset($_SESSION['emp'])) {
                                                         <h5 class="card-title">Select Side</h5>
                                                         <div class="row justify-content-around">
 
-                                                            <button class="col-4 btn btn-xl btn-danger" data-bs-toggle="button">MERON</button>
+                                                        <button class="col-4 btn btn-xl btn-danger" data-bs-toggle="button"  onclick="setSideValue('Meron')">MERON</button>
 
-                                                            <button class="col-4 btn btn-xl btn-primary" data-bs-toggle="button">WALA</button>
-
+                                                            <button class="col-4 btn btn-xl btn-primary" data-bs-toggle="button" onclick="setSideValue('Wala')">WALA</button>
 
                                                         </div>
                                                         <div class="card-body">
-                                                            <button class="col-4 btn btn-xl btn-success" data-bs-toggle="button">DRAW</button>
+                                                        <button class="col-4 btn btn-xl btn-success" data-bs-toggle="button" onclick="setSideValue('Draw')">DRAW</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -374,12 +374,12 @@ if (!isset($_SESSION['emp'])) {
                                                     <div clas="col">
                                                         <h3 class="card-title">BET SUMMARY</h3>
                                                         <hr>
-                                                        <h4> Venue: </h4>
-                                                        <h4> Side:</h4>
+                                                        <h4> Event: <span id="displayEvent">0</span></h4>
+                                                        <h4> Side:<span id="displaySide">0</span></h4>
                                                         <h4>Amount: <span id="displayAmount">0</span> PHP</h4>
-                                                        <h4> Fight #:</h4>
-                                                        <h4> Location:</h4>
-                                                        <button class="col-4 btn btn-xl btn-primary">POST BET</button>
+                                                        <h4> Fight #: <span id="displayFight">0</span></h4>
+                                                        <h4> Location: <span id="displayLocation"></span></h4>
+                                                        <button class="col-4 btn btn-xl btn-primary" >POST BET</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -463,7 +463,7 @@ if (!isset($_SESSION['emp'])) {
                                     <i data-feather="x"></i>
                                 </button>
                             </div>
-                            <form action="process_cashin.php" method="post">
+                            <form action="process_cashin.php" method="post" data-parsley-validate   >
                                 <div class="modal-body">
                                     <div class="form-group">
                                         <label for="employeeID">Employee ID: </label>
@@ -477,12 +477,12 @@ if (!isset($_SESSION['emp'])) {
 
                                     <div class="form-group">
                                         <label for="amount">Amount: </label>
-                                        <input id="amount" name="amount" type="text" placeholder="" class="form-control" required>
+                                        <input id="amount" name="amount" type="text" placeholder="" class="form-control" data-parsley-required="true">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="datetime">Date/Time: </label>
-                                        <input id="datetime" name="datetime" type="text" placeholder="" class="form-control flatpickr-no-config" required>
+                                        <input id="datetime" name="datetime" type="text" placeholder="" class="form-control flatpickr-no-config" data-parsley-required="true">
                                     </div>
                                 </div>
                                 <div class="modal-footer">
@@ -518,7 +518,21 @@ if (!isset($_SESSION['emp'])) {
 <script src="assets/extensions/flatpickr/flatpickr.min.js"></script>
 <script src="assets/static/js/pages/date-picker.js"></script>
 <script src="assets/compiled/js/app.js"></script>
+<script src="assets/extensions/parsleyjs/parsley.min.js"></script>
+<script src="assets/static/js/pages/parsley.js"></script>
+
 <script>
+    var employeeName = "<?php echo $_SESSION['empName'] ?>";
+     var employeeRole = "<?php echo $_SESSION['role'] ?>";
+     var currentRole = '';
+     if(employeeRole == 1){
+        currentRole = 'Administartor';
+     }else{
+        currentRole = 'Cashier';
+     }
+
+     $("#employeeName").html(employeeName);
+     $("#employeeRole").html(currentRole);
     document.addEventListener('DOMContentLoaded', function() {
         // Generate a randomized 5-digit integer and set it to the input field
         function generateTransactionID() {
@@ -548,6 +562,17 @@ if (!isset($_SESSION['emp'])) {
         document.getElementById('customBet').value = value;
         document.getElementById('displayAmount').innerText = value;
     }
+
+    function setSideValue(value) {
+        document.getElementById('displaySide').innerText = value;
+    }
+
+    $("#customBet").keyup(function(event){
+        if(event.keyCode == 13){
+            document.getElementById('displayAmount').innerText = $("#customBet").val();
+        }
+    });
+
 </script>
 
 
